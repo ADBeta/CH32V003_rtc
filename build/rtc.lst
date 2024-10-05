@@ -1,0 +1,237 @@
+
+build/rtc.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+00000000 <InterruptVector>:
+   0:	0a00006f          	j	a0 <_einit>
+   4:	00000000          	.word	0x00000000
+   8:	00000118          	.word	0x00000118
+   c:	00000116          	.word	0x00000116
+	...
+  30:	00000116          	.word	0x00000116
+  34:	00000000          	.word	0x00000000
+  38:	00000116          	.word	0x00000116
+  3c:	00000000          	.word	0x00000000
+  40:	00000116          	.word	0x00000116
+  44:	00000116          	.word	0x00000116
+  48:	00000116          	.word	0x00000116
+  4c:	00000116          	.word	0x00000116
+  50:	000001f0          	.word	0x000001f0
+  54:	00000116          	.word	0x00000116
+  58:	00000116          	.word	0x00000116
+  5c:	00000116          	.word	0x00000116
+  60:	00000116          	.word	0x00000116
+  64:	00000116          	.word	0x00000116
+  68:	00000116          	.word	0x00000116
+  6c:	00000116          	.word	0x00000116
+  70:	00000116          	.word	0x00000116
+  74:	00000116          	.word	0x00000116
+  78:	00000116          	.word	0x00000116
+  7c:	00000116          	.word	0x00000116
+  80:	00000116          	.word	0x00000116
+  84:	00000116          	.word	0x00000116
+  88:	00000116          	.word	0x00000116
+  8c:	00000116          	.word	0x00000116
+  90:	00000116          	.word	0x00000116
+  94:	00000116          	.word	0x00000116
+  98:	00000116          	.word	0x00000116
+  9c:	0000                	.insn	2, 0x
+	...
+
+Disassembly of section .text:
+
+000000a0 <handle_reset>:
+  a0:	20000197          	auipc	gp,0x20000
+  a4:	76018193          	addi	gp,gp,1888 # 20000800 <__global_pointer$>
+  a8:	00018113          	mv	sp,gp
+  ac:	08000513          	li	a0,128
+  b0:	30051073          	csrw	mstatus,a0
+  b4:	468d                	li	a3,3
+  b6:	00000517          	auipc	a0,0x0
+  ba:	f4a50513          	addi	a0,a0,-182 # 0 <InterruptVector>
+  be:	8d55                	or	a0,a0,a3
+  c0:	30551073          	csrw	mtvec,a0
+  c4:	20000517          	auipc	a0,0x20000
+  c8:	f3c50513          	addi	a0,a0,-196 # 20000000 <state>
+  cc:	80418593          	addi	a1,gp,-2044 # 20000004 <_ebss>
+  d0:	4601                	li	a2,0
+  d2:	00b55663          	bge	a0,a1,de <handle_reset+0x3e>
+  d6:	c110                	sw	a2,0(a0)
+  d8:	0511                	addi	a0,a0,4
+  da:	feb54ee3          	blt	a0,a1,d6 <handle_reset+0x36>
+  de:	24400513          	li	a0,580
+  e2:	20000597          	auipc	a1,0x20000
+  e6:	f1e58593          	addi	a1,a1,-226 # 20000000 <state>
+  ea:	20000617          	auipc	a2,0x20000
+  ee:	f1660613          	addi	a2,a2,-234 # 20000000 <state>
+  f2:	00c58863          	beq	a1,a2,102 <handle_reset+0x62>
+  f6:	4114                	lw	a3,0(a0)
+  f8:	c194                	sw	a3,0(a1)
+  fa:	0511                	addi	a0,a0,4
+  fc:	0591                	addi	a1,a1,4
+  fe:	fec59ae3          	bne	a1,a2,f2 <handle_reset+0x52>
+ 102:	e000f7b7          	lui	a5,0xe000f
+ 106:	4705                	li	a4,1
+ 108:	c398                	sw	a4,0(a5)
+ 10a:	18800793          	li	a5,392
+ 10e:	34179073          	csrw	mepc,a5
+ 112:	30200073          	mret
+
+00000116 <ADC1_IRQHandler>:
+ 116:	a001                	j	116 <ADC1_IRQHandler>
+
+00000118 <NMI_Handler>:
+ 118:	40021737          	lui	a4,0x40021
+ 11c:	471c                	lw	a5,8(a4)
+ 11e:	008006b7          	lui	a3,0x800
+ 122:	8fd5                	or	a5,a5,a3
+ 124:	c71c                	sw	a5,8(a4)
+
+00000126 <SystemInit>:
+ 126:	400227b7          	lui	a5,0x40022
+ 12a:	4705                	li	a4,1
+ 12c:	c398                	sw	a4,0(a5)
+ 12e:	400217b7          	lui	a5,0x40021
+ 132:	01080737          	lui	a4,0x1080
+ 136:	0007a223          	sw	zero,4(a5) # 40021004 <__global_pointer$+0x20020804>
+ 13a:	08170713          	addi	a4,a4,129 # 1080081 <rtc.c.9ce503f0+0x107e1a7>
+ 13e:	c398                	sw	a4,0(a5)
+ 140:	009f0737          	lui	a4,0x9f0
+ 144:	c798                	sw	a4,8(a5)
+ 146:	40021737          	lui	a4,0x40021
+ 14a:	431c                	lw	a5,0(a4)
+ 14c:	00679693          	slli	a3,a5,0x6
+ 150:	fe06dde3          	bgez	a3,14a <SystemInit+0x24>
+ 154:	435c                	lw	a5,4(a4)
+ 156:	400216b7          	lui	a3,0x40021
+ 15a:	9bf1                	andi	a5,a5,-4
+ 15c:	0027e793          	ori	a5,a5,2
+ 160:	c35c                	sw	a5,4(a4)
+ 162:	4721                	li	a4,8
+ 164:	42dc                	lw	a5,4(a3)
+ 166:	8bb1                	andi	a5,a5,12
+ 168:	fee79ee3          	bne	a5,a4,164 <SystemInit+0x3e>
+ 16c:	e00007b7          	lui	a5,0xe0000
+ 170:	0f878793          	addi	a5,a5,248 # e00000f8 <__global_pointer$+0xbffff8f8>
+ 174:	0007a023          	sw	zero,0(a5)
+ 178:	e00007b7          	lui	a5,0xe0000
+ 17c:	0f478793          	addi	a5,a5,244 # e00000f4 <__global_pointer$+0xbffff8f4>
+ 180:	08000713          	li	a4,128
+ 184:	c398                	sw	a4,0(a5)
+ 186:	8082                	ret
+
+00000188 <main>:
+	//printf("0x%04X\n\n", EXTI->INTFR);
+}
+
+
+int main()
+{
+ 188:	1151                	addi	sp,sp,-12
+ 18a:	c406                	sw	ra,8(sp)
+	SystemInit();
+ 18c:	3f69                	jal	126 <SystemInit>
+
+	// NOTE: PD0 LED
+	
+	// Enable PORTD for the XTAL, and AFIO for Interrupts
+	RCC->APB2PCENR = RCC_APB2Periph_GPIOD | RCC_APB2Periph_AFIO;
+ 18e:	400217b7          	lui	a5,0x40021
+ 192:	02100713          	li	a4,33
+ 196:	cf98                	sw	a4,24(a5)
+	// Set up PD4 as a floating input for the XTAL to pulse
+	//funPinMode(PD4, GPIO_CFGLR_IN_FLOAT);
+	funPinMode(PD4, GPIO_CFGLR_IN_PUPD);
+ 198:	400117b7          	lui	a5,0x40011
+ 19c:	40078793          	addi	a5,a5,1024 # 40011400 <__global_pointer$+0x20010c00>
+ 1a0:	4398                	lw	a4,0(a5)
+ 1a2:	fff106b7          	lui	a3,0xfff10
+ 1a6:	16fd                	addi	a3,a3,-1 # fff0ffff <__global_pointer$+0xdff0f7ff>
+ 1a8:	8f75                	and	a4,a4,a3
+ 1aa:	000806b7          	lui	a3,0x80
+ 1ae:	8f55                	or	a4,a4,a3
+ 1b0:	c398                	sw	a4,0(a5)
+	funDigitalWrite(PD4, FUN_LOW);
+ 1b2:	001006b7          	lui	a3,0x100
+ 1b6:	cb94                	sw	a3,16(a5)
+
+	funPinMode(PD0, GPIO_CFGLR_OUT_10Mhz_PP);
+ 1b8:	4398                	lw	a4,0(a5)
+ 1ba:	9b41                	andi	a4,a4,-16
+ 1bc:	00176713          	ori	a4,a4,1
+ 1c0:	c398                	sw	a4,0(a5)
+
+	// Configure PD4 as an interrupt
+	AFIO->EXTICR |= AFIO_EXTICR_EXTI4_PD;
+ 1c2:	40010737          	lui	a4,0x40010
+ 1c6:	471c                	lw	a5,8(a4)
+ 1c8:	3007e793          	ori	a5,a5,768
+ 1cc:	c71c                	sw	a5,8(a4)
+	// Enable EXT4 interrupt
+	EXTI->INTENR |= EXTI_INTENR_MR4;
+ 1ce:	400107b7          	lui	a5,0x40010
+ 1d2:	40078793          	addi	a5,a5,1024 # 40010400 <__global_pointer$+0x2000fc00>
+ 1d6:	4398                	lw	a4,0(a5)
+ 1d8:	01076713          	ori	a4,a4,16
+ 1dc:	c398                	sw	a4,0(a5)
+	// Set EXT4 to trigger on rising edge
+	EXTI->RTENR |= EXTI_RTENR_TR4;
+ 1de:	4798                	lw	a4,8(a5)
+ 1e0:	01076713          	ori	a4,a4,16
+ 1e4:	c798                	sw	a4,8(a5)
+ * @param   IRQn - Interrupt Numbers
+ * @return  none
+ */
+RV_STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
+{
+	NVIC->IENR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 1e6:	e000e7b7          	lui	a5,0xe000e
+ 1ea:	10d7a023          	sw	a3,256(a5) # e000e100 <__global_pointer$+0xc000d900>
+
+	// Enable External Interrputs
+	NVIC_EnableIRQ(EXTI7_0_IRQn);
+
+	while(1)
+ 1ee:	a001                	j	1ee <main+0x66>
+
+000001f0 <EXTI7_0_IRQHandler>:
+{
+ 1f0:	1151                	addi	sp,sp,-12
+ 1f2:	c03e                	sw	a5,0(sp)
+	if(EXTI->INTFR & EXTI_Line4)
+ 1f4:	400107b7          	lui	a5,0x40010
+ 1f8:	40078793          	addi	a5,a5,1024 # 40010400 <__global_pointer$+0x2000fc00>
+ 1fc:	4bdc                	lw	a5,20(a5)
+{
+ 1fe:	c436                	sw	a3,8(sp)
+ 200:	c23a                	sw	a4,4(sp)
+	if(EXTI->INTFR & EXTI_Line4)
+ 202:	8bc1                	andi	a5,a5,16
+ 204:	cb8d                	beqz	a5,236 <EXTI7_0_IRQHandler+0x46>
+		funDigitalWrite(PD0, state);
+ 206:	200007b7          	lui	a5,0x20000
+ 20a:	0007c703          	lbu	a4,0(a5) # 20000000 <state>
+ 20e:	4685                	li	a3,1
+ 210:	e311                	bnez	a4,214 <EXTI7_0_IRQHandler+0x24>
+ 212:	66c1                	lui	a3,0x10
+ 214:	40011737          	lui	a4,0x40011
+ 218:	40070713          	addi	a4,a4,1024 # 40011400 <__global_pointer$+0x20010c00>
+ 21c:	cb14                	sw	a3,16(a4)
+		state = !state;
+ 21e:	0007c703          	lbu	a4,0(a5)
+ 222:	00173713          	seqz	a4,a4
+ 226:	00e78023          	sb	a4,0(a5)
+		EXTI->INTFR = EXTI_Line4;
+ 22a:	400107b7          	lui	a5,0x40010
+ 22e:	40078793          	addi	a5,a5,1024 # 40010400 <__global_pointer$+0x2000fc00>
+ 232:	4741                	li	a4,16
+ 234:	cbd8                	sw	a4,20(a5)
+}
+ 236:	46a2                	lw	a3,8(sp)
+ 238:	4712                	lw	a4,4(sp)
+ 23a:	4782                	lw	a5,0(sp)
+ 23c:	0131                	addi	sp,sp,12
+ 23e:	30200073          	mret
+	...
