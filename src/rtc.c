@@ -5,8 +5,8 @@
 #include <stdio.h>
 
 #define RTC_TICKS_PER_SEC 32768
-volatile uint32_t _rtc_ticks = 0x0000;
-volatile uint32_t _rtc_secs  = 0x0000;
+static volatile uint32_t _rtc_ticks = 0x0000;
+static volatile uint32_t _rtc_secs  = 0x0000;
 
 // External Interrupt IRQ Handler
 void EXTI7_0_IRQHandler(void) __attribute__((interrupt));
